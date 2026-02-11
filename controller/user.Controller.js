@@ -26,7 +26,7 @@ exports.createUser = async (req, res) => {
         message: "Bu email allaqachon mavjud",
       });
     }
-    if (err.name === "SequelizeUniqueConstraintError") {
+    if (err.name === "SequelizeValidationError") {
       return res.status(400).json({
         success: false,
         message: "Malumotlar validatsiyadan otmadi",
@@ -46,10 +46,10 @@ exports.createUser = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findAll({
-      include: [
-        { model: EduSchema, as: "eduSchemas" },
-        { model: Customer, as: "Customer" },
-      ],
+      // include: [
+      //   { model: EduSchema, as: "eduSchemas" },
+      //   { model: Customer, as: "Customer" },
+      // ],
     });
     res.status(200).json(user);
   } catch (error) {
@@ -62,10 +62,10 @@ exports.getUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
-      include: [
-        { model: EduSchema, as: "eduSchemas" },
-        { model: Customer, as: "Customer" },
-      ],
+      // include: [
+      //   { model: EduSchema, as: "eduSchemas" },
+      //   { model: Customer, as: "Customer" },
+      // ],
     });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
@@ -90,7 +90,7 @@ exports.UpdateUser = async (req, res) => {
       });
     }
     await user.update(req.body);
-    res.status(200).json({ message: `Updated successfully` });
+    res.status(200).json({ data: user, message: `Updated successfully` });
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
   }
@@ -103,11 +103,9 @@ exports.UserDeleteById = async (req, res) => {
     const user = await User.findByPk(req.params.id);
     if (!user) return res.status(404).json({ message: `User not found` });
 
-    await user.details();
-    res.status(200).json({ message: `User deleted successfully` });
+    await user.destroy();
+    res.status(200).json({ data: user, message: `User deleted successfully` });
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
   }
 };
-
-
