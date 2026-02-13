@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
+  const Customer = sequelize.define("Customer", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -19,16 +19,15 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true,
       },
     },
-    password: {
+    address: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   });
-
-  User.beforeSave(async (user, options) => {
-    if (user.changed("password")) {
-      user.password = await bcrypt.hash(user.password, 10);
+  Customer.beforeSave(async (customer, options) => {
+    if (customer.changed("password")) {
+      customer.password = await bcrypt.hash(customer.password, 10);
     }
   });
-  return User;
+  return Customer;
 };

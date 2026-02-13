@@ -6,7 +6,7 @@ const userController = require("../controller/user.Controller");
  * @swagger
  * tags:
  *   name: Users
- *   description: User management
+ *   description: User boshqarish
  */
 
 route.post("/createUser", userController.createUser);
