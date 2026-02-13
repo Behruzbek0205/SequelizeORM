@@ -39,7 +39,7 @@ route.post("/createUser", userController.createUser);
  *         description: Internal input data
  */
 
-route.get("/getUser", userController.getUser)
+route.get("/getUser", userController.getUser);
 
 /**
  * @swagger
@@ -54,7 +54,7 @@ route.get("/getUser", userController.getUser)
  *         description: Internal input data
  */
 
-route.get("/getUserById/:id", userController.getUserById)
+route.get("/getUserById/:id", userController.getUserById);
 /**
  * @swagger
  * /api/getUserById/{id}:
@@ -74,8 +74,7 @@ route.get("/getUserById/:id", userController.getUserById)
  *         description: User topilmadi
  */
 
-
-route.put("/UpdateUser/:id", userController.UpdateUser)
+route.put("/UpdateUser/:id", userController.UpdateUser);
 /**
  * @swagger
  * /api/UpdateUser/{id}:
@@ -108,7 +107,7 @@ route.put("/UpdateUser/:id", userController.UpdateUser)
  *         description: Validatsiya xatosi
  */
 
-route.delete("/UserDeleteById/:id", userController.UserDeleteById)
+route.delete("/UserDeleteById/:id", userController.UserDeleteById);
 
 /**
  * @swagger
@@ -129,4 +128,29 @@ route.delete("/UserDeleteById/:id", userController.UserDeleteById)
  *         description: User topilmadi
  */
 
-module.exports = route
+route.get("/searchUsers", userController.searchUsers);
+
+/**
+ * @swagger
+ * /api/searchUsers:
+ *   get:
+ *     summary: User qidirish
+ *     tags: [Users]
+ *     description: User qidirish
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         required: true
+ *         description: Qidiruv (name and email)
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User topildi
+ *       404:
+ *         description: User topilmadi
+ *       500:
+ *         description: Server xatosi
+ */
+
+module.exports = route;

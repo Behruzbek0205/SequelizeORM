@@ -109,3 +109,22 @@ exports.UserDeleteById = async (req, res) => {
     res.status(500).json({ message: `Server error: ${error.message}` });
   }
 };
+
+// search usere
+
+exports.searchUsers = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).send("Search query is required");
+    }
+    const users = await User.findAll({
+      where: {
+        [Op.or]: [{ name: { [Op.like]: `%${query}%` } }],
+      },
+    });
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
