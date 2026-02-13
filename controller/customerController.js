@@ -1,10 +1,10 @@
 const { Customer } = require("../models");
-const { validationCustomer } = require("../validation/customerValidation");
+const { validateCustomer } = require("../validation/customerValidation");
 
 
 exports.createCustomer = async (req, res) => {
   try {
-    const { error } = validationCustomer(req.body);
+    const { error } = validateCustomer(req.body);
     if (error) {
       return res.status(400).json({
         success: false,
@@ -12,7 +12,7 @@ exports.createCustomer = async (req, res) => {
         errors: error.details.map((err) => err.message),
       });
     }
-    const customer = await User.create(req.body);
+    const customer = await Customer.create(req.body);
     res.status(201).json({
       success: true,
       message: "Xaridor muvaffaqiyatli yaratildi",

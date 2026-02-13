@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const { sequelize } = require("./models");
 const userRoute = require("./routes/user.route");
-const setupSwagger = require("./swagger/swagger");
+const customerRoute = require("./routes/customer.route")
+const setupSwagger = require("./swagger/Swagger");
 
 dotenv.config();
 
@@ -12,8 +13,9 @@ const PORT = process.env.PORT || 5432;
 
 index.use(express.json());
 index.use(cors({ origin: "*" }));
-
+index.use("/customer", customerRoute)
 index.use("/api", userRoute);
+
 setupSwagger(index);
 
 sequelize

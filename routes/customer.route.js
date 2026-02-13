@@ -2,21 +2,20 @@ const expess = require("express");
 const route = expess.Router();
 const customerController = require("../controller/customerController");
 
-
 /**
  * @swagger
  * tags:
- *   name: Cusotmer
- *   description: Cusotmer boshqarish
+ *   name: Customer
+ *   description: Customer boshqarish
  */
 
-route.post("/createCustomer",customerController.createCustomer)
+route.post("/createCustomer", customerController.createCustomer);
 
 /**
  * @swagger
- * /api/createCustomer:
+ * /customer/createCustomer:
  *   post:
- *     tags: [Cusotmer]
+ *     tags: [Customer]
  *     summary: Create a new customer
  *     requestBody:
  *        required: true
@@ -40,4 +39,4 @@ route.post("/createCustomer",customerController.createCustomer)
  *         description: Internal input data
  */
 
-module.exports = route
+module.exports = route;

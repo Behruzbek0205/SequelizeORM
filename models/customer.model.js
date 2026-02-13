@@ -24,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  Customer.beforeSave(async (customer, options) => {
-    if (customer.changed("password")) {
-      customer.password = await bcrypt.hash(customer.password, 10);
-    }
-  });
+  // Customer.beforeSave(async (customer, options) => {
+  //   if (customer.changed("password")) {
+  //     customer.password = await bcrypt.hash(customer.password, 10);
+  //   }
+  // });
   return Customer;
 };
