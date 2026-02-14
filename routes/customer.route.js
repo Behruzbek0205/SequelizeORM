@@ -44,7 +44,7 @@ route.get("/getCustomer", customerController.getCustomer)
 
 /**
  * @swagger
- * /customer/getCustomer:
+ * /customer/getCustomer: 
  *   get:
  *     tags: [Customer]
  *     summary: Get all customer
@@ -54,5 +54,8 @@ route.get("/getCustomer", customerController.getCustomer)
  *       500:
  *         description: Interal input data
  */
+
+
+
 
 module.exports = route;
