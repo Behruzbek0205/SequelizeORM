@@ -110,7 +110,7 @@ exports.UserDeleteById = async (req, res) => {
   }
 };
 
-// search usere
+// search user
 
 exports.searchUsers = async (req, res) => {
   try {

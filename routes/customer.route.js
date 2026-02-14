@@ -39,4 +39,20 @@ route.post("/createCustomer", customerController.createCustomer);
  *         description: Internal input data
  */
 
+
+route.get("/getCustomer", customerController.getCustomer)
+
+/**
+ * @swagger
+ * /customer/getCustomer:
+ *   get:
+ *     tags: [Customer]
+ *     summary: Get all customer
+ *     responses:
+ *       201:
+ *         description: List of all customers
+ *       500:
+ *         description: Interal input data
+ */
+
 module.exports = route;

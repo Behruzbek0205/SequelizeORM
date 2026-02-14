@@ -1,7 +1,6 @@
 const { Customer } = require("../models");
 const { validateCustomer } = require("../validation/customerValidation");
 
-
 exports.createCustomer = async (req, res) => {
   try {
     const { error } = validateCustomer(req.body);
@@ -40,3 +39,14 @@ exports.createCustomer = async (req, res) => {
     });
   }
 };
+
+// get customer
+exports.getCustomer = async (req, res) => {
+  try {
+    const customer = await User.findAll({});
+    res.status(200).json(customer);
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
