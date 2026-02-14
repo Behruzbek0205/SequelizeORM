@@ -1,4 +1,5 @@
 const { Customer } = require("../models");
+const { Op } = require("sequelize");
 const { validateCustomer } = require("../validation/customerValidation");
 
 exports.createCustomer = async (req, res) => {
@@ -50,12 +51,26 @@ exports.getCustomer = async (req, res) => {
   }
 };
 
-// get by id customer
+//  get by id customer
+
+exports.getCustomerById = async (req, res) => {
+  try {
+    const customer = await Customer.findByPk(req.params.id, {});
+    if (!customer)
+      return res.status(404).json({ message: "Customer not found" });
+    res.status(200).json(customer);
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
+// update customer
 
 exports.CustomerUpdate = async (req, res) => {
   try {
     const customer = await Customer.findByPk(req.params.id);
-    if (!customer) return res.status(404).json({ message: `Customer not found` });
+    if (!customer)
+      return res.status(404).json({ message: `Customer not found` });
 
     const { error } = validateCustomer(req.body);
     if (error) {
@@ -69,5 +84,41 @@ exports.CustomerUpdate = async (req, res) => {
     res.status(200).json({ data: customer, message: `Updated successfully` });
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
+//  delete Customer
+
+exports.deleteCustomer = async (req, res) => {
+  try {
+    const customer = await Customer.findByPk(req.params.id);
+    if (!customer)
+      return res.status(404).json({ message: `Customer not found` });
+
+    await customer.destroy();
+    res
+      .status(200)
+      .json({ data: customer, message: `Customer deleted successfully` });
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
+// search customer
+
+exports.searchCustomer = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).send("Search query is required");
+    }
+    const customer = await Customer.findAll({
+      where: {
+        [Op.or]: [{ name: { [Op.like]: `%${query}%` } }],
+      },
+    });
+    res.status(200).send(customer);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
   }
 };

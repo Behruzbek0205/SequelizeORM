@@ -113,7 +113,7 @@ route.delete("/UserDeleteById/:id", userController.UserDeleteById);
  * @swagger
  * /api/UserDeleteById/{id}:
  *   delete:
- *     summary: House o‘chirish
+ *     summary: User o‘chirish
  *     tags: [Users]
  *     parameters:
  *       - in: path
