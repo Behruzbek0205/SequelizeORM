@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    customer_id: {
+      type: DataTypes.INTEGER,
+    },
   });
 
   User.beforeSave(async (user, options) => {
@@ -30,5 +33,13 @@ module.exports = (sequelize, DataTypes) => {
       user.password = await bcrypt.hash(user.password, 10);
     }
   });
+
+  User.associate = (models) => {
+    User.hasMany(models.Customer, {
+      foreignKey: "customer_id",
+      as: "customer",
+    });
+  };
+
   return User;
 };
