@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
   const Car = sequelize.define("Car", {
@@ -26,5 +26,11 @@ module.exports = (sequelize, DataTypes) => {
       car.seria = await bcrypt.hash(car.seria, 10);
     }
   });
+  Car.associate = (models) => {
+    Car.hasMany(models.User, {
+      foreignKey: "car_id",
+      as: "user_id",
+    });
+  };
   return Car;
 };

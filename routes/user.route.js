@@ -32,6 +32,8 @@ route.post("/createUser", userController.createUser);
  *                  type: string
  *                customer_id:
  *                  type: integer
+ *                car_id:
+ *                  type: integer
  *     responses:
  *       201:
  *         description: User created successfully

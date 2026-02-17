@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     customer_id: {
       type: DataTypes.INTEGER,
     },
+    car_id: {
+      type: DataTypes.INTEGER,
+    },
   });
 
   User.beforeSave(async (user, options) => {
@@ -39,6 +42,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "customer_id",
       as: "customer",
     });
+    Car.associate = (models) => {
+      User.belongsTo(models.Car, {
+        foreignKey: "car_id",
+        as: "car"
+      });
+    };
   };
 
   return User;
