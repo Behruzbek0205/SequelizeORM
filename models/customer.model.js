@@ -29,5 +29,12 @@ module.exports = (sequelize, DataTypes) => {
   //     customer.password = await bcrypt.hash(customer.password, 10);
   //   }
   // });
+  
+  Customer.associate = (models) => {
+    Customer.hasMany(models.User, {
+      foreignKey: "customer_id",
+      as: "user_id",
+    });
+  };
   return Customer;
 };

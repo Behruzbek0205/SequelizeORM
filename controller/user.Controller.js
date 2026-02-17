@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
-const { User } = require("../models");
+const { User, Customer } = require("../models");
+
 const { validateUser } = require("../validation/userValidation");
 
 exports.createUser = async (req, res) => {
@@ -45,12 +46,7 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findAll({
-      // include: [
-      //   { model: EduSchema, as: "eduSchemas" },
-      //   { model: Customer, as: "Customer" },
-      // ],
-    });
+    const user = await User.findAll({});
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
@@ -62,10 +58,7 @@ exports.getUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
-      // include: [
-      //   { model: EduSchema, as: "eduSchemas" },
-      //   { model: Customer, as: "Customer" },
-      // ],
+      include: [{ model: Customer, as: "customer" }],
     });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
@@ -128,3 +121,6 @@ exports.searchUsers = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+//  user car model yozib va carni userga ulash kerak
+// car_id userda bolishi kerak

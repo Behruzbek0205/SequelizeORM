@@ -30,6 +30,8 @@ route.post("/createUser", userController.createUser);
  *                  type: string
  *                password:
  *                  type: string
+ *                customer_id:
+ *                  type: integer
  *     responses:
  *       201:
  *         description: User created successfully
