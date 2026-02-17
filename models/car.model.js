@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     discription: { type: DataTypes.STRING },
     color: { type: DataTypes.STRING, allowNull: false },
     horsePower: { type: DataTypes.INTEGER, allowNull: false },
-
     carType: { type: DataTypes.STRING, allowNull: false },
     charging: { type: DataTypes.STRING },
     weight: { type: DataTypes.INTEGER, allowNull: false },
@@ -20,5 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     seria: { type: DataTypes.STRING, allowNull: false },
   });
 
+  Car.beforeSave(async (car, options) => {
+    if (car.changed("seria")) {
+      car.seria = await bcrypt.hash(car.seria, 10);
+    }
+  });
   return Car;
 };
