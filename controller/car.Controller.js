@@ -2,7 +2,7 @@ const {Op} = require("sequelize")
 const {Car} = require("../models")
 const {validateCar} = require("../validation/carValidation")
 
-
+// CreateCar
 exports.createCar = async (req, res) => {
   try {
     const { error } = validateCar(req.body);
@@ -41,3 +41,32 @@ exports.createCar = async (req, res) => {
     });
   }
 };
+
+
+//  getCar
+
+exports.getCars = async (req, res) => {
+  try {
+    const car = await Car.findAll({});
+    res.status(200).json(car);
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
+
+//  getCar by id
+
+
+exports.getCarById = async (req, res) => {
+  try {
+    const car = await Car.findByPk(req.params.id, {
+    //   include: [{ model: Customer, as: "customer" }],
+    });
+    if (!car) return res.status(404).json({ message: "Car not found" });
+    res.status(200).json(car);
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
