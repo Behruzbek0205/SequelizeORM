@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt");
-
 module.exports = (sequelize, DataTypes) => {
   const Car = sequelize.define("Car", {
     id: {
@@ -12,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     discription: { type: DataTypes.STRING },
     color: { type: DataTypes.STRING, allowNull: false },
     horsePower: { type: DataTypes.INTEGER, allowNull: false },
-    carType: { type: String, required: true },
-    charging: { type: String },
-    weight: { type: Number, required: true },
-    gasoline: { type: String, required: true },
-    yearMachine: { type: String, required: true },
-    price: { type: Number, required: true },
-    seria: { type: String, required: true },
-  });
-};
 
+    carType: { type: DataTypes.STRING, allowNull: false },
+    charging: { type: DataTypes.STRING },
+    weight: { type: DataTypes.INTEGER, allowNull: false },
+    gasoline: { type: DataTypes.STRING, allowNull: false },
+    yearMachine: { type: DataTypes.STRING, allowNull: false },
+    price: { type: DataTypes.INTEGER, allowNull: false },
+    seria: { type: DataTypes.STRING, allowNull: false },
+  });
+
+  return Car;
+};
