@@ -1,5 +1,5 @@
-const expess = require("express");
-const route = expess.Router();
+const express = require("express");
+const route = express.Router();
 const userController = require("../controller/user.Controller");
 
 /**

@@ -70,3 +70,40 @@ exports.getCarById = async (req, res) => {
   }
 };
 
+
+
+//  update car
+
+exports.UpdateCar = async (req, res) => {
+  try {
+    const car = await Car.findByPk(req.params.id);
+    if (!car) return res.status(404).json({ message: `Car topolmadi maraz` });
+
+    const { error } = validateCar(req.body);
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: "Validatsiya xatosi",
+        errors: error.details.map((err) => err.message),
+      });
+    }
+    await car.update(req.body);
+    res.status(200).json({ data: car, message: `Ozgardi` });
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
+//  delete car
+
+exports.deleteCar = async (req, res) => {
+  try {
+    const car = await Car.findByPk(req.params.id);
+    if (!car) return res.status(404).json({ message: `Car not found` });
+
+    await car.destroy();
+    res.status(200).json({ data: car, message: `Car deleted successfully` });
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
