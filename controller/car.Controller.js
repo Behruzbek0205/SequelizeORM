@@ -43,7 +43,7 @@ exports.createCar = async (req, res) => {
 };
 
 
-//  getCar
+//  getCars
 
 exports.getCars = async (req, res) => {
   try {

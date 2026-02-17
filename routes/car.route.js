@@ -1,7 +1,6 @@
-const express = require("express")
+const express = require("express");
 const route = express.Router();
-const carController = require("../controller/car.Controller") 
-
+const carController = require("../controller/car.Controller");
 
 /**
  * @swagger
@@ -10,8 +9,7 @@ const carController = require("../controller/car.Controller")
  *   description: Moshinalarni boshqarish
  */
 
-route.post("/createCar", carController.createCar)
-
+route.post("/createCar", carController.createCar);
 
 /**
  * @swagger
@@ -29,11 +27,11 @@ route.post("/createCar", carController.createCar)
  *                title:
  *                  type: string
  *                model:
- *                  type: string              
+ *                  type: string
  *                color:
- *                  type: string                
+ *                  type: string
  *                horsePower:
- *                  type: number 
+ *                  type: number
  *                carType:
  *                  type: string
  *                weight:
@@ -55,10 +53,109 @@ route.post("/createCar", carController.createCar)
  *         description: Internal input data
  */
 
+route.get("/getCars", carController.getCars);
+
+/**
+ * @swagger
+ * /car/getCars:
+ *   get:
+ *     tags: [Car]
+ *     summary: Get all cars
+ *     responses:
+ *       201:
+ *         description: List of all cars
+ *       500:
+ *         description: Internal input data
+ */
+
+route.get("/getCarById/:id", carController.getCarById);
+/**
+ * @swagger
+ * /car/getCarById/{id}:
+ *   get:
+ *     summary: Carni ID orqali olish
+ *     tags: [Car]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Topilgan car
+ *       404:
+ *         description: Car topilmadi
+ */
+
+route.put("/UpdateCar/:id", carController.UpdateCar);
+/**
+ * @swagger
+ * /car/UpdateCar/{id}:
+ *   put:
+ *     summary: Car yangilash
+ *     tags: [Car]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                title:
+ *                  type: string
+ *                model:
+ *                  type: string
+ *                color:
+ *                  type: string
+ *                horsePower:
+ *                  type: number
+ *                carType:
+ *                  type: string
+ *                weight:
+ *                  type: number
+ *                gasoline:
+ *                  type: string
+ *                yearMachine:
+ *                  type: number
+ *                price:
+ *                  type: number
+ *                seria:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Car yangilandi
+ *       400:
+ *         description: Validatsiya xatosi
+ */
 
 
+route.delete("/deleteCar/:id", carController.deleteCar);
 
-module.exports = route
+/**
+ * @swagger
+ * /car/deleteCar/{id}:
+ *   delete:
+ *     summary: Car o‘chirish
+ *     tags: [Car]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Car o‘chirildi
+ *       404:
+ *         description: Car topilmadi
+ */
 
-//  *                customer_id:
-//  *                  type: integer
+
+module.exports = route;
