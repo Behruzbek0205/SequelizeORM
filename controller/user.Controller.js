@@ -58,8 +58,10 @@ exports.getUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
-      include: [{ model: Customer, as: "customer" }],
-      include: [{ mode: Car, as: "car" }],
+      include: [
+        { model: Customer, as: "customer" },
+        { model: Car, as: "car" },
+      ],
     });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);

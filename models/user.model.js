@@ -42,12 +42,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "customer_id",
       as: "customer",
     });
-    Car.associate = (models) => {
-      User.belongsTo(models.Car, {
-        foreignKey: "car_id",
-        as: "car"
-      });
-    };
+    User.belongsTo(models.Car, {
+      foreignKey: "car_id",
+      as: "car",
+    });
   };
 
   return User;

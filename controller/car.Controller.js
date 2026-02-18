@@ -1,6 +1,6 @@
-const {Op} = require("sequelize")
-const {Car} = require("../models")
-const {validateCar} = require("../validation/carValidation")
+const { Op } = require("sequelize");
+const { Car } = require("../models");
+const { validateCar } = require("../validation/carValidation");
 
 // CreateCar
 exports.createCar = async (req, res) => {
@@ -42,7 +42,6 @@ exports.createCar = async (req, res) => {
   }
 };
 
-
 //  getCars
 
 exports.getCars = async (req, res) => {
@@ -54,23 +53,17 @@ exports.getCars = async (req, res) => {
   }
 };
 
-
 //  getCar by id
-
 
 exports.getCarById = async (req, res) => {
   try {
-    const car = await Car.findByPk(req.params.id, {
-    //   include: [{ model: Customer, as: "customer" }],
-    });
+    const car = await Car.findByPk(req.params.id, {});
     if (!car) return res.status(404).json({ message: "Car not found" });
     res.status(200).json(car);
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
   }
 };
-
-
 
 //  update car
 
