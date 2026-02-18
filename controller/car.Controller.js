@@ -3,6 +3,7 @@ const { Car } = require("../models");
 const { validateCar } = require("../validation/carValidation");
 
 // CreateCar
+
 exports.createCar = async (req, res) => {
   try {
     const { error } = validateCar(req.body);
@@ -98,5 +99,24 @@ exports.deleteCar = async (req, res) => {
     res.status(200).json({ data: car, message: `Car deleted successfully` });
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+};
+
+// search car
+
+exports.searchCar = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).send("Search query is required");
+    }
+    const car = await Car.findAll({
+      where: {
+        [Op.or]: [{ title: { [Op.like]: `%${query}%` } }],
+      },
+    });
+    res.status(200).send(car);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
   }
 };

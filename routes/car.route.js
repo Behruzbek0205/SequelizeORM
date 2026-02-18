@@ -135,7 +135,6 @@ route.put("/UpdateCar/:id", carController.UpdateCar);
  *         description: Validatsiya xatosi
  */
 
-
 route.delete("/deleteCar/:id", carController.deleteCar);
 
 /**
@@ -157,5 +156,29 @@ route.delete("/deleteCar/:id", carController.deleteCar);
  *         description: Car topilmadi
  */
 
+route.get("/searchCar", carController.searchCar);
+
+/**
+ * @swagger
+ * /car/searchCar:
+ *   get:
+ *     summary: Car qidirish
+ *     tags: [Car]
+ *     description: Car qidirish
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         required: true
+ *         description: Qidiruv (title and yearMachine)
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Car topildi
+ *       404:
+ *         description: Car topilmadi
+ *       500:
+ *         description: Server xatosi
+ */
 
 module.exports = route;
