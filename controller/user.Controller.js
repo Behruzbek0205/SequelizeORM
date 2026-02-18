@@ -1,6 +1,5 @@
 const { Op } = require("sequelize");
 const { User, Customer, Car } = require("../models");
-
 const { validateUser } = require("../validation/userValidation");
 
 exports.createUser = async (req, res) => {

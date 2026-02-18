@@ -12,6 +12,7 @@ const Address = require("./customer_address.model")(
 User.associate(sequelize.models);
 Customer.associate(sequelize.models);
 Car.associate(sequelize.models);
+Address.associate(sequelize.models);
 
 module.exports = {
   sequelize,

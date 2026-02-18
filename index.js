@@ -5,6 +5,7 @@ const { sequelize } = require("./models");
 const carRoute = require("./routes/car.route");
 const userRoute = require("./routes/user.route");
 const customerRoute = require("./routes/customer.route");
+const addressRoute = require("./routes/customer_address.route");
 const setupSwagger = require("./swagger/Swagger");
 
 dotenv.config();
@@ -17,6 +18,7 @@ index.use(cors({ origin: "*" }));
 index.use("/customer", customerRoute);
 index.use("/api", userRoute);
 index.use("/car", carRoute);
+index.use("/address", addressRoute);
 
 setupSwagger(index);
 

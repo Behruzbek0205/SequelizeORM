@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-  const Customer_address = sequelize.define("Car", {
+  const Customer_address = sequelize.define("Address", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -35,12 +35,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    car_id: {
+      type: DataTypes.INTEGER,
+    },
+
     // customer_id: {
     //   type: DataTypes.INTEGER,
     // },
-    // car_id: {
-    //   type: DataTypes.INTEGER,
-    // },
   });
+
+  Customer_address.associate = (models) => {
+    Customer_address.belongsTo(models.Car, {
+      foreignKey: "car_id",
+      as: "car",
+    });
+  };
+
   return Customer_address;
 };
